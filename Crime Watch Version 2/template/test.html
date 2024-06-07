@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Watch</title>
+
+    <!------------------- CUSTOM CSS ------------------->
+    <link rel="stylesheet" href="\static\css\style.css">
+    <link rel="stylesheet" href="\static\css\media_queries.css">
+    <link rel="stylesheet" href="\static\css\animation.css">
+
+    <!------------------- GOOGLE FONTS ------------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+
+<body>
+    <!------------------- MAIN CONTAINER ------------------->
+    <div class="container">
+
+        <!------------------- HEADER ------------------->
+        <header>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <img src="\static\img\cwlogo.jpg" alt="cw Logo">
+                </div>
+
+
+
+                <button class="btn btn-primary">
+                    <p class="btn-text">{{ username }}</p>
+                    <span class="square"></span>
+                </button>
+
+                <button class="nav-toggle-btn">
+                    <span class="one"></span>
+                    <span class="two"></span>
+                    <span class="three"></span>
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators" id="carousel-indicators"></ol>
+                <div class="carousel-inner" id="carousel-inner"></div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <section class="course" id="course">
+                <h2 class="section-title">Recent Updates News</h2>
+                <div class="course-grid" id="course-grid"></div>
+            </section>
+        </main>
+
+
+        <!------------------- FOOTER ------------------->
+        <footer>
+            <div class="footer-grid">
+                <div class="grid-item">
+                    <div class="footer-logo">
+                        <img src="\static\img\output-onlinepngtools.png" alt="cwlogofooter">
+                    </div>
+                    <p class="footer-text">
+                        Transforming crime detection with cutting-edge audio forensics and AI, deciphering the language
+                        of crime in
+                        real-time Urdu calls, empowering law enforcement with invaluable insights.
+                    </p>
+
+                    <div class="social-link">
+                        <a href="#">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                        <a href="#">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                        <a href="#">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                        <a href="#">
+                            <ion-icon name="logo-youtube"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+                <section class="contact_section layout_padding" style="margin-left: 300px;">
+
+                    <div class="row">
+                        <div class="col-md-8 col-lg-6 mx-auto">
+                            <div class="form_container">
+                                <form method="post" action="/contact">
+                                    {% csrf_token %}
+                                    <div>
+                                        <input type="text" id="name" name="name" placeholder="Your Name" />
+                                    </div>
+                                    <div>
+                                        <input type="email" id="email" name="email" placeholder="Your Email" />
+                                    </div>
+                                    <div>
+                                        <input type="text" name="phone" placeholder="Your Phone" />
+                                    </div>
+                                    <div>
+                                        <input type="text" id="desc" name="desc" class="message-box"
+                                            placeholder="Message" />
+                                    </div>
+                                    <div class="btn_box ">
+                                        <button type="submit">
+                                            SEND
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </section>
+
+
+
+    </div>
+    </footer>
+
+    </div>
+
+
+
+
+
+
+
+
+    <!------------------- CUSTOM JS ------------------->
+    <script src="\static\js\script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the JSON string from the template
+            const dataJson = '{{ data_json|escapejs }}';
+            // Parse the JSON string into a JavaScript object
+            const data = JSON.parse(dataJson);
+
+            if (data.articles.length > 0) {
+                populateCarousel(data.articles);
+                populateCourseGrid(data.articles);
+            } else {
+                console.log('No data available');
+            }
+        });
+
+        function populateCarousel(data) {
+            const innerContainer = document.getElementById('carousel-inner');
+
+            innerContainer.innerHTML = ''; // Clear existing carousel items
+
+            data.forEach((item, index) => {
+                // Create carousel items
+                const carouselItem = document.createElement('div');
+                carouselItem.classList.add('carousel-item');
+                if (index === 0) {
+                    carouselItem.classList.add('active');
+                }
+
+                const courseCard = `
+        `
+
+                carouselItem.innerHTML = courseCard;
+                innerContainer.appendChild(carouselItem);
+            });
+        }
+
+        function populateCourseGrid(data) {
+            const gridContainer = document.getElementById('course-grid');
+
+            gridContainer.innerHTML = ''; // Clear existing grid items
+
+            data.forEach((item) => {
+                // Create course grid items
+                const gridItem = document.createElement('div');
+                gridItem.classList.add('course-card');
+
+                const courseCard = `
+            <div class="course-banner">
+                <img src="${item.urlToImage}" alt="course banner">
+            </div>
+            <div class="course-content">
+                <h3 class="card-title">
+                    <a href="${item.url}">${item.title}</a>
+                </h3>
+                <div class="enrolled">
+                    <p>${item.description}</p>
+                </div>
+                <div class="wrapper border-bottom">
+                </div>
+                <div class="wrapper">
+                    <div class="enrolled">
+                        <div class="icon-user">
+                            <img src="\\static\\img\\student-icon.png" alt="user icon">
+                        </div>
+                        <p>${item.author}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                gridItem.innerHTML = courseCard;
+                gridContainer.appendChild(gridItem);
+            });
+        }
+    </script>
+    <!------------------- IONICON LINK ------------------->
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

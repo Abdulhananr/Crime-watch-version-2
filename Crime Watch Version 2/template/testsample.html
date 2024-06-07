@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Watch</title>
+
+    <!------------------- CUSTOM CSS ------------------->
+    <!-- <link rel="stylesheet" href="\static\css\style.css">
+  <link rel="stylesheet" href="\static\css\media_queries.css">
+  <link rel="stylesheet" href="\static\css\animation.css"> -->
+
+    <!------------------- GOOGLE FONTS ------------------->
+    <!------------------- GOOGLE FONTS ------------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        button {
+            padding: 15px 30px;
+            /* Increase the padding for a larger button */
+            font-size: 16px;
+            color: #fff;
+            background: #3d52a0;
+            border: none;
+            border-radius: 25px;
+            /* Rounded edges */
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+            /* Drop shadow on all sides */
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2),
+                -6px -6px 12px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            margin-bottom: 15px;
+        }
+
+        #recordButton {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+
+        }
+
+        #stopButton {
+            background-color: #f44336;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        #resumeButton {
+            background-color: #2196F3;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        #uploadButton {
+            background-color: #FFC107;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="container a-container" id="a-container">
+
+
+            <!-- <audio style="margin-bottom: 30px;margin-left: 150px;margin-top: 30px;" id="audioElement" controls></audio> -->
+
+            <div style="
+                  display: flex;
+                
+
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction:column;
+                  margin-bottom: 10px;">
+
+
+                <button id="recordButton" style=" margin-bottom: 10px;"><i style="margin-right: 5px;"
+                        class="fas fa-microphone btn-icon"></i>Record</button>
+                <button id="stopButton" style=" margin-bottom: 10px;" disabled><i class="fas fa-stop btn-icon"
+                        style="margin-right: 5px;"></i>Stop</button>
+                <button id="resumeButton" style=" margin-bottom: 10px;" disabled><i class="fas fa-play btn-icon"
+                        style="margin-right: 5px;"></i>Resume</button>
+                <button id="uploadButton" style=" margin-bottom: 10px;" disabled>
+                    <i class="fas fa-upload btn-icon" style="margin-right: 5px;"></i>
+                    <span id="loader" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                    Upload
+                </button>
+            </div>
+
+
+        </div>
+        <div class="container b-container" id="b-container">
+            <div class="box" style="margin-left: 10px; margin-top: 10px">
+
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Translation:</div>
+                    <div class="value" style="margin-left: 5px; " id="text-value"></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Criminal Activity:</div>
+                    <div class="value " style="margin-left: 5px; " id="criminalact-value"></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Criminal Keywords:</div>
+                    <div class="value" style="margin-left: 5px; " id="Keywords-value"></div>
+                </div>
+
+                <div Style="display: flex; flex-direction:row;">
+
+                    <div class="label">Time:</div>
+                    <div class="value" style="margin-left: 5px; " id="time-value"></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Date:</div>
+                    <div class="value" id="date-value" style="margin-left: 5px; "></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Location:</div>
+                    <div class="value" id="location-value" style="margin-left: 5px;"></div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="switch" id="switch-cnt">
+            <div class="switch__circle"></div>
+            <div class="switch__circle switch__circle--t"></div>
+            <div class="switch__container" id="switch-c1">
+                <h2 class="switch__title title">Welcome Back !</h2>
+                <p class="switch__description description">To keep connected with us please login with your personal
+                    info</p>
+                <!-- <button class="switch__button button switch-btn">SIGN IN</button> -->
+            </div>
+            <div class="switch__container is-hidden" id="switch-c2">
+                <h2 class="switch__title title">Hello Friend !</h2>
+                <p class="switch__description description">Enter your personal details and start journey with us</p>
+                <button class="switch__button button switch-btn" id="back-button">SIGN UP</button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/main.js"></script>
+    <script>
+        let mediaRecorder;
+        let chunks = [];
+        let isRecording = false;
+        const recordButton = document.getElementById('recordButton');
+        const stopButton = document.getElementById('stopButton');
+        const resumeButton = document.getElementById('resumeButton');
+        const uploadButton = document.getElementById('uploadButton');
+        const audioElement = document.getElementById('audioElement');
+        const card = document.querySelector(".card"), backButton = document.getElementById("back-button");
+
+        recordButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
+        resumeButton.addEventListener('click', resumeRecording);
+        uploadButton.addEventListener('click', uploadAudio);
+        const loader = document.getElementById('loader');
+
+        uploadButton.addEventListener('click', uploadAudio);
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = function (e) {
+                        chunks.push(e.data);
+                    };
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordButton.disabled = true;
+                    stopButton.disabled = false;
+                    resumeButton.disabled = true;
+                    uploadButton.disabled = true;
+
+                })
+                .catch(function (err) {
+                    console.error('Error recording audio: ' + err);
+                });
+        }
+
+        function stopRecording() {
+            if (isRecording) {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                recordButton.disabled = false;
+                stopButton.disabled = true;
+                resumeButton.disabled = false;
+                uploadButton.disabled = false;
+            }
+        }
+
+        function resumeRecording() {
+            if (!isRecording) {
+                startRecording();
+            }
+        }
+
+        function uploadAudio() {
+            uploadButton.disabled = true;
+            recordButton.disabled = true;
+            stopButton.disabled = true;
+            resumeButton.disabled = true;
+            loader.style.display = 'inline';
+
+
+            const blob = new Blob(chunks, { 'type': 'audio/mp3' });
+            const formData = new FormData();
+
+            formData.append('file', blob, 'recorded_audio.mp3');
+
+            const csrftoken = getCookie('csrftoken');
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload_file', true);
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    // Calculate progress percentage here if needed
+                }
+            };
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var responseData = JSON.parse(xhr.responseText);
+                    document.getElementById('criminalact-value').innerText = responseData.prediction;
+                    document.getElementById('Keywords-value').innerText = responseData.Identifiedwords;
+                    document.getElementById('location-value').innerText = responseData.Locations;
+                    document.getElementById('date-value').innerText = responseData.Dates;
+                    document.getElementById('time-value').innerText = responseData.Times;
+                    document.getElementById('text-value').innerText = responseData.ProcessedText;
+
+
+                } else {
+                    console.error('Error:', xhr.statusText);
+                }
+                uploadButton.disabled = false;
+                recordButton.disabled = false;
+                stopButton.disabled = false;
+                resumeButton.disabled = false;
+                loader.style.display = 'none';
+                const button = document.querySelector('.switch__button.button.switch-btn');
+
+                // Check if the button exists to avoid errors
+                if (button) {
+                    // Simulate a button click
+                    button.click();
+                } else {
+                    console.error('Button not found!');
+                }
+            };
+
+
+
+            xhr.send(formData);
+
+            // For demonstration purposes, we'll just set the audio element source to the recorded audio
+            // const audioURL = URL.createObjectURL(blob);
+            // audioElement.src = audioURL;
+            // audioElement.play();
+
+            // Reset chunks array for next recording
+            chunks = [];
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Check if this cookie string begins with the name we want
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+
+</html>

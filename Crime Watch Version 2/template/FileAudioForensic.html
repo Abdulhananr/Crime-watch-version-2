@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Watch</title>
+
+    <!------------------- CUSTOM CSS ------------------->
+    <!-- <link rel="stylesheet" href="\static\css\style.css">
+  <link rel="stylesheet" href="\static\css\media_queries.css">
+  <link rel="stylesheet" href="\static\css\animation.css"> -->
+
+    <!------------------- GOOGLE FONTS ------------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrapper header {
+            color: #0a0a0a;
+            font-size: 27px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .wrapper form {
+            height: 167px;
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 5px;
+            border: 2px dashed #7d7e82;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        form :where(i, p) {
+            color: #8697c4;
+        }
+
+        form i {
+            font-size: 50px;
+        }
+
+        form p {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        section .row {
+            margin-bottom: 10px;
+            background: #E9F0FF;
+            list-style: none;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        section .row i {
+            color: #3d52a0;
+            font-size: 30px;
+        }
+
+        section .details span {
+            font-size: 14px;
+        }
+
+        .progress-area .row .content {
+            width: 100%;
+            margin-left: 15px;
+        }
+
+        .progress-area .details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 7px;
+            justify-content: space-between;
+        }
+
+        .progress-area .content .progress-bar {
+            height: 6px;
+            width: 100%;
+            margin-bottom: 4px;
+            background: #fff;
+            border-radius: 30px;
+        }
+
+        .content .progress-bar .progress {
+            height: 100%;
+            width: 0%;
+            background: #3d52a0;
+            border-radius: inherit;
+        }
+
+        .uploaded-area {
+            max-height: 232px;
+            overflow-y: scroll;
+            width: 100%;
+        }
+
+        .uploaded-area.onprogress {
+            max-height: 150px;
+        }
+
+        .uploaded-area::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .uploaded-area .row .content {
+            display: flex;
+            align-items: center;
+        }
+
+        .uploaded-area .row .details {
+            display: flex;
+            margin-left: 15px;
+            flex-direction: column;
+        }
+
+        .uploaded-area .row .details .size {
+            color: #404040;
+            font-size: 11px;
+        }
+
+        .uploaded-area i.fa-check {
+            font-size: 16px;
+        }
+
+        button {
+            padding: 15px 30px;
+            /* Increase the padding for a larger button */
+            font-size: 16px;
+
+            background: #3d52a0;
+            border: none;
+            border-radius: 25px;
+            /* Rounded edges */
+            cursor: pointer;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+            /* Drop shadow on all sides */
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2),
+                -6px -6px 12px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            margin-bottom: 15px;
+        }
+        .description {
+    color: black;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="container a-container" id="a-container">
+            <div class="wrapper">
+                <h2 style="margin-bottom: 30px;">Upload Audio File</h2>
+
+                <form action="#">
+                    <input class="file-input" type="file" name="file" hidden>
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Browse File to Upload</p>
+                </form>
+                <section class="progress-area"></section>
+                <section class="uploaded-area"></section>
+            </div>
+
+
+        </div>
+        <div class="container b-container" id="b-container">
+            <div class="box" style="margin-left: 10px; margin-top: 10px">
+
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Translation:</div>
+                    <div class="value" style="margin-left: 5px;  color: black;" id="text-value"></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Criminal Activity:</div>
+                    <div class="value " style="margin-left: 5px;  color: black;" id="criminalact-value"></div>
+                </div>
+                <div Style="display: flex; flex-direction:row;">
+                    <div class="label">Criminal Keywords:</div>
+                    <div class="value" style="margin-left: 5px; color: black; " id="Keywords-value"></div>
+                </div>
+
+                <div Style="display: flex; flex-direction:row;">
+
+                    <div class="label">Summary:</div>
+                    <div class="value" style="margin-left: 5px; color: black; " id="time-value"></div>
+                </div>
+               
+
+
+
+            </div>
+
+        </div>
+        <div class="switch" id="switch-cnt">
+            <div class="switch__circle"></div>
+            <div class="switch__circle switch__circle--t"></div>
+            <div class="switch__container" id="switch-c1">
+                <a href="index" style="margin-left: 100; margin-top: -200px;font-size: 30px;" >
+                    <i class="fas fa-arrow-left"></i> 
+                </a>
+                <h2 class="switch__title title">File Audio Forensic </h2>
+                <p class="switch__description description">Welcome to the File Audio Forensic, Upload your Urdu audio files for detailed analysis and detection of potential criminal activities using our trained Models</p>
+                <!-- <button class="switch__button button switch-btn">SIGN IN</button> -->
+            </div>
+            <div class="switch__container is-hidden" id="switch-c2">
+                <h2 class="switch__title title">File Forensic Results </h2>
+                <p class="switch__description description"> Your File Audio is analysed by our trainned models & summary is generated Successfully.</p>
+                <button class="switch__button button switch-btn" id="back-button">Return</button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/main.js"></script>
+    <script>
+        // JavaScript code
+        const form = document.querySelector("form"),
+            fileInput = document.querySelector(".file-input"),
+            progressArea = document.querySelector(".progress-area"),
+            uploadedArea = document.querySelector(".uploaded-area"),
+            card = document.querySelector(".card"),
+            backButton = document.getElementById("back-button");
+        var csrftoken = getCookie('csrftoken');
+        form.addEventListener("click", () => {
+            fileInput.click();
+        });
+
+        fileInput.onchange = ({ target }) => {
+            let file = target.files[0];
+            if (file) {
+                let fileName = file.name;
+                if (fileName.length >= 12) {
+                    let splitName = fileName.split('.');
+                    fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+                }
+                uploadFile(fileName);
+            }
+        };
+
+        function uploadFile(name) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", '/upload_file');
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            xhr.upload.addEventListener("progress", ({ loaded, total }) => {
+                let fileLoaded = Math.floor((loaded / total) * 100);
+                let fileTotal = Math.floor(total / 1000);
+                let fileSize;
+                (fileTotal < 1024) ? fileSize = fileTotal + " KB" : fileSize = (loaded / (1024 * 1024)).toFixed(2) + " MB";
+                let progressHTML = `<li class="row">
+                                  <i class="fas fa-file-alt"></i>
+                                  <div class="content">
+                                    <div class="details">
+                                      <span class="name">${name} • Uploading</span>
+                                      <span class="percent">${fileLoaded}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                      <div class="progress" style="width: ${fileLoaded}%"></div>
+                                    </div>
+                                  </div>
+                                </li>`;
+                uploadedArea.classList.add("onprogress");
+                progressArea.innerHTML = progressHTML;
+                if (loaded == total) {
+                    progressArea.innerHTML = "";
+                    let uploadedHTML = `<li class="row">
+                                    <div class="content upload">
+                                      <i class="fas fa-file-alt"></i>
+                                      <div class="details">
+                                        <span class="name">${name} • Uploaded</span>
+                                        <span class="size">${fileSize}</span>
+                                      </div>
+                                    </div>
+                                    <i class="fas fa-check"></i>
+                                  </li>`;
+                    uploadedArea.classList.remove("onprogress");
+                    uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+
+
+                    // Add the following lines to flip the card automatically
+
+                }
+            });
+            xhr.onload = function () {
+                // File upload completed
+                if (xhr.status === 200) {
+                    // Assuming the response is valid JSON
+                    var responseData = JSON.parse(xhr.responseText);
+                    document.getElementById('criminalact-value').innerText = responseData.prediction;
+                    document.getElementById('Keywords-value').innerText = responseData.Identifiedwords;
+                    
+                    document.getElementById('time-value').innerText = responseData.Summary;;
+                    document.getElementById('text-value').innerText = responseData.ProcessedText;
+
+                    // Update your UI with the data, e.g., updating the output-box
+
+                } else {
+                    console.error('Error:', xhr.statusText);
+                }
+                const button = document.querySelector('.switch__button.button.switch-btn');
+
+                // Check if the button exists to avoid errors
+                if (button) {
+                    // Simulate a button click
+                    button.click();
+                } else {
+                    console.error('Button not found!');
+                }
+            };
+
+            let data = new FormData(form);
+            xhr.send(data);
+
+        }
+
+        // Flip Card JavaScript
+        backButton.addEventListener("click", () => {
+            progressArea.innerHTML = "";
+            uploadedArea.innerHTML = "";
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Check if this cookie string begins with the name we want
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function openModal(content) {
+            var modal = document.getElementById('custom-modal');
+            var modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = '<span class="close" onclick="closeModal()">&times;</span><h2>Output</h2><p>' + content + '</p>';
+            modal.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crime Watch</title>
+
+  <!------------------- CUSTOM CSS ------------------->
+  <link rel="stylesheet" href="\static\css\style.css">
+  <link rel="stylesheet" href="\static\css\media_queries.css">
+  <link rel="stylesheet" href="\static\css\animation.css">
+
+  <!------------------- GOOGLE FONTS ------------------->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    :root {
+      --background-dark: #2d3548;
+      --text-light: rgba(255, 255, 255, 0.6);
+      --text-lighter: rgba(255, 255, 255, 0.9);
+      --spacing-s: 8px;
+      --spacing-m: 16px;
+      --spacing-l: 24px;
+      --spacing-xl: 32px;
+      --spacing-xxl: 64px;
+      --width-container: 1200px;
+    }
+
+    .hero-section {
+      align-items: flex-start;
+      background-image: linear-gradient(15deg, #050e38 0%, #8697c4  150%);
+      display: flex;
+      min-height: 100%;
+      justify-content: center;
+      padding: var(--spacing-xxl) var(--spacing-l);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-column-gap: var(--spacing-l);
+      grid-row-gap: var(--spacing-l);
+      max-width: var(--width-container);
+      width: 100%;
+    }
+
+    @media (min-width: 540px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .card {
+      list-style: none;
+      position: relative;
+    }
+
+    .card:before {
+      content: "";
+      display: block;
+      padding-bottom: 150%;
+      width: 100%;
+    }
+
+    .card__background {
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--spacing-l);
+      bottom: 0;
+      filter: brightness(0.75) saturate(1.2) contrast(0.85);
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform-origin: center;
+      trsnsform: scale(1) translateZ(0);
+      transition: filter 200ms linear, transform 200ms linear;
+    }
+
+    .card:hover .card__background {
+      transform: scale(1.05) translateZ(0);
+    }
+
+    .card-grid:hover>.card:not(:hover) .card__background {
+      filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+    }
+
+    .card__content {
+      left: 0;
+      padding: var(--spacing-l);
+      position: absolute;
+      top: 0;
+    }
+
+    .card__category {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-s);
+      text-transform: uppercase;
+      margin-bottom: 0px;
+    }
+
+    .card__heading {
+      color: var(--text-lighter);
+      font-size: 1.9rem;
+      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+      line-height: 1.4;
+      word-spacing: 100vw;
+    }
+  </style>
+
+
+</head>
+
+
+<body>
+  <!------------------- MAIN CONTAINER ------------------->
+  <div class="container">
+
+    <!------------------- HEADER ------------------->
+    <header>
+      <nav class="navbar">
+        <div class="navbar-brand">
+          <img src="\static\img\cwlogo.jpg" alt="cw Logo">
+        </div>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#powerbi-container">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a href="#course">News</a>
+          </li>
+          <li class="nav-item">
+            <a href="#Services">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a href="#team">Our Team</a>
+          </li>
+        </ul>
+
+        <button class="btn btn-primary">
+          <p class="btn-text">{{ username }}</p>
+          <span class="square"></span>
+        </button>
+        <a href="/logout">
+          <i class="fas fa-sign-out-alt" style="margin-left: -45px;"></i> Logout
+        </a>
+
+        <button class="nav-toggle-btn">
+          <span class="one"></span>
+          <span class="two"></span>
+          <span class="three"></span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!------------------- HOME SECTION ------------------->
+      <section class="home" id="home">
+        <div class="deco-shape shape-1">
+        </div>
+        <div class="deco-shape shape-2">
+          <img src="\static\img\shape-2.png" alt="art shape" width="55">
+        </div>
+        <div class="deco-shape shape-3">
+          <img src="\static\img\shape-3.png" alt="art shape" width="120">
+        </div>
+        <div class="deco-shape shape-4">
+          <img src="\static\img\shape-4.png" alt="art shape" width="30">
+        </div>
+
+        <div class="home-left">
+          <p class="section-subtitle">
+            Welcome To Crime Watch
+          </p>
+          <h1 class="main-heading">
+            Audio Forensic &
+            <span class="underline-img"> AI Analysis<img src="\static\img\banner-line.png" alt="Line"></span>
+          </h1>
+
+          <p class="section-text">
+            Revolutionizing Crime Detection through Advanced Audio Forensics and AI Technology.
+            Detecting and Analyzing Criminal Activities in Urdu Audio Calls.
+            Empowering Law Enforcement with Real-Time Data and Insights.
+          </p>
+
+          <div class="home-btn-group">
+            <button class="btn btn-primary" id="viewAllNewsButton2">
+              <p class="btn-text">Explore Services</p>
+              <span class="square"></span>
+            </button>
+           
+
+          </div>
+        </div>
+
+        <div class="home-right">
+          <div class="img-box">
+            <img src="\static\img\about-img-bg.png" alt="colorful background shape" class="background-shape">
+            <img src="\static\img\Bannerimage.png" alt="banner image" class="banner-img">
+
+            <img src="\static\img\banner_allignment_icon.png" alt="" class="icon-1 smooth-zigzag-anim-1" width="250">
+            <img src="\static\img\banner_allignment_icon (2).png" alt="" class="icon-2 smooth-zigzag-anim-2"
+              width="240">
+            <img src="\static\img\banner_allignment_icon (3).png" alt="" class="icon-3 smooth-zigzag-anim-3"
+              width="195">
+            <img src="\static\img\image (8).png" alt="" class="icon-4 drop-anim">
+
+          </div>
+        </div>
+      </section>
+
+      <!------------------- Dashboard ------------------->
+      <Section class="category">
+        <h2 class="section-title">Crime Analytics Dashboard</h2>
+        <style>
+          #powerbi-container {
+            width: 100%;
+            height: 100vh;
+            /* Full viewport height */
+            position: relative;
+          }
+
+          #powerbi-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            /* Remove the border */
+          }
+
+          #branding-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            /* Height of the branding to be hidden */
+            background-color: white;
+            /* Change this to the background color you want */
+            z-index: 1;
+            /* Ensure it's above the iframe */
+          }
+        </style>
+
+        <div id="powerbi-container" class="powerbi-container">
+          <iframe title="Crime Watch Dashboard"
+            src="https://app.powerbi.com/view?r=eyJrIjoiODgzZmJiNGMtMmRiMC00ZjE0LTk2NzYtNzg5ZGY3ODcyNGIyIiwidCI6IjU5MTJmMzI4LWI5NjctNDcwZS1iMTViLTgzYmNmZDIwODAzYiIsImMiOjl9&pageName=ReportSectione714d07216682eb40805"
+            frameborder="0" allowFullScreen="true"></iframe>
+          <div id="branding-overlay"></div>
+
+        </div>
+
+
+
+      </Section>
+
+      <!------------------- course SECTION ------------------->
+      <section class="course" id="course">
+        <h2 class="section-title">Recent Updates News</h2>
+
+        <div class="course-grid">
+          {% for article in articles %}
+          <div class="course-card">
+            <div class="course-banner">
+              <img src="{{ article.urlToImage }}" alt="course banner">
+            </div>
+            <div class="course-content">
+              <h3 class="card-title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+              <div class="enrolled">
+                <p>{{ article.description }}</p>
+              </div>
+              <div class="wrapper border-bottom"></div>
+              <div class="wrapper">
+                <div class="enrolled">
+                  <div class="icon-user">
+                    <img src="\static\img\student-icon.png" alt="user icon">
+                  </div>
+                  <p>{{ article.author }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <button class="btn btn-primary" id="viewAllNewsButton">
+          <p class="btn-text">View All News</p>
+          <span class="square"></span>
+        </button>
+        
+      </section>
+
+      <!-- Other sections -->
+    </main>
+
+      
+      
+      <h2 class="section-title" style="margin-left: 530px;margin-bottom: 20px;">Our Services</h2>
+      <section class="hero-section" id="Services" style="margin-bottom: 30px;">
+        
+        <div class="card-grid"  style="margin-left: 300px;">
+          
+          <a class="card" href="LawyerAi">
+            <div class="card__background"
+              style="background-image: url(https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            </div>
+            <div class="card__content">
+              <p class="card__category">Category</p>
+              <h3 class="card__heading">Real-Time Lawyer.Ai</h3>
+            </div>
+          </a>
+          <a class="card" href="LiveAudioForensic">
+            <div class="card__background"
+              style="background-image: url(https://images.unsplash.com/photo-1612367289874-0fba3b4a07dd?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            </div>
+            <div class="card__content">
+              <p class="card__category">Category</p>
+              <h3 class="card__heading">Real-Time Audio Forensic</h3>
+            </div>
+          </a>
+          <a class="card" href="FileAudioForensic">
+            <div class="card__background"
+              style="background-image: url(https://images.unsplash.com/photo-1669173034860-eca2e1ee62b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+            </div>
+            <div class="card__content">
+              <p class="card__category">Category</p>
+              <h3 class="card__heading">File Audio Forensic</h3>
+            </div>
+          </a>
+            </li>
+           
+            <div>
+      </section>
+
+      <!------------------- Teams SECTION ------------------->
+      <section class="team" id="team">
+        <h2 class="section-title">Our Team</h2>
+
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-img-box">
+              <img src="\static\img\image (9).png" alt="team">
+              <div class="social-link">
+                <a href="#" class="facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+
+                <a href="#" class="instagram">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+
+                <a href="#" class="twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </div>
+            </div>
+            <h4 class="team-name">Lehrasib Ali</h4>
+
+          </div>
+
+          <div class="team-card">
+            <div class="team-img-box">
+              <img src="\static\img\image (11).png" alt="team">
+              <div class="social-link">
+                <a href="#" class="facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+
+                <a href="#" class="instagram">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+
+                <a href="#" class="twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </div>
+            </div>
+            <h4 class="team-name">Abdul Hannan</h4>
+          </div>
+
+          <div class="team-card">
+            <div class="team-img-box">
+              <img src="\static\img\image (10).png" alt="team">
+              <div class="social-link">
+                <a href="#" class="facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+
+                <a href="#" class="instagram">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+
+                <a href="#" class="twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </div>
+            </div>
+            <h4 class="team-name">M Ali Hamza</h4>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+
+    <!------------------- FOOTER ------------------->
+    <footer>
+      <div class="footer-grid">
+        <div class="grid-item">
+          <div class="footer-logo">
+            <img src="\static\img\output-onlinepngtools.png" alt="cwlogofooter">
+          </div>
+          <p class="footer-text">
+            Transforming crime detection with cutting-edge audio forensics and AI, deciphering the language of crime in
+            real-time Urdu calls, empowering law enforcement with invaluable insights.
+          </p>
+
+          <div class="social-link">
+            <a href="#">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+            <a href="#">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+            <a href="#">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+            <a href="#">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </div>
+        </div>
+        <section class="contact_section layout_padding" style="margin-left: 300px;">
+         
+            <div class="row">
+              <div class="col-md-8 col-lg-6 mx-auto">
+                <div class="form_container">
+                  <form method="post" action="/contact">
+                    {% csrf_token %}
+                    <div>
+                      <input type="text" id="name"  name="name"  placeholder="Your Name" />
+                    </div>
+                    <div>
+                      <input type="email" id="email" name="email" placeholder="Your Email" />
+                    </div>
+                    <div>
+                      <input type="text" name="phone" placeholder="Your Phone" />
+                    </div>
+                    <div>
+                      <input type="text" id="desc" name="desc" class="message-box" placeholder="Message" />
+                    </div>
+                    <div class="btn_box ">
+                      <button type="submit">
+                        SEND
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        
+      </div>
+    </footer>
+
+  </div>
+  <script>
+    document.getElementById('viewAllNewsButton').addEventListener('click', function() {
+      window.location.href = 'test';
+    });
+  </script>
+<script>
+  document.getElementById('viewAllNewsButton2').addEventListener('click', function() {
+    window.location.href = '#Services';
+  });
+</script>
+
+
+
+
+
+
+  <!------------------- CUSTOM JS ------------------->
+  <script src="\static\js\script.js"></script>
+
+  <!------------------- IONICON LINK ------------------->
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
